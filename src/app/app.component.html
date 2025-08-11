@@ -1,31 +1,54 @@
 <nav>
-    <ul>
-        <li routerLink="main">main</li>
+    <ul class="nav-links">
+        <li class="dropdown">
+            <a routerLink="/man" class="dropbtn">Man</a>
+            <div class="dropdown-content">
+                <a routerLink="/man/footwear">Footwear</a>
+                <a routerLink="/man/clothing">Clothing</a>
+                <a routerLink="/man/accessories">Accessories</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a routerLink="/women" class="dropbtn">Women</a>
+            <div class="dropdown-content">
+                <a routerLink="/women/footwear">Footwear</a>
+                <a routerLink="/women/clothing">Clothing</a>
+                <a routerLink="/women/jewelry">Jewelry</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a routerLink="/kids" class="dropbtn">Kids</a>
+            <div class="dropdown-content">
+                <a routerLink="/kids/footwear">Footwear</a>
+                <a routerLink="/kids/clothing">Clothing</a>
+                <a routerLink="/kids/toys">Toys</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a routerLink="/sport-clothes" class="dropbtn">Sport Clothes</a>
+            <div class="dropdown-content">
+                <a routerLink="/sport-clothes/activewear">Activewear</a>
+                <a routerLink="/sport-clothes/gear">Gear</a>
+                <a routerLink="/sport-clothes/accessories">Accessories</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a routerLink="/discount" class="dropbtn">Discount</a>
+            <div class="dropdown-content">
+                <a routerLink="/discount/clearance">Clearance</a>
+                <a routerLink="/discount/seasonal">Seasonal Sales</a>
+            </div>
+        </li>
     </ul>
-    <ul>
-        <li routerLink="list">list</li>
-        <li routerLink="admin">admin</li>
-        <li routerLink="hamilion">hamilion</li>
-    </ul>
+    <div class="nav-right">
+        <div class="search-bar">
+            <input type="text" placeholder="Search products..." (input)="onSearch($event)">
+            <i class="fas fa-search"></i>
+        </div>
+        <ul class="nav-icons">
+            <li><i class="fas fa-heart"></i></li>
+            <li><i class="fas fa-shopping-cart"></i></li>
+        </ul>
+    </div>
 </nav>
 <router-outlet></router-outlet>
-<!-- <h1>{{ingbro.name()}}</h1>
-@if (ingbro.loading()) {
-    <p><i>loading...</i></p>
-    please wait!
-    }
-    <br>
-    <input type="text" #myinp name="" id="">
-    <button (click)="ingbro.getname(myinp.value)">get name</button>
-    <h5>{{ingbro.price()|currency:'USD'}}</h5>
-    <p>discount:{{ingbro.discount()|currency:'USD'}}</p>
-    <button (click)="ingbro.pluser()">plusser</button> -->
-<h1>salom</h1>
-<button (click)="geter()">get data</button>
-<button (click)="newpost()">new post</button>
-<button (click)="puter(5)">puter</button>
-<button (click)="patcher(1)">patcher</button>
-<button (click)="del(20)">delate</button>
-@for (item of user; track $index) {
-<p>{{item.userId}}</p>
-}

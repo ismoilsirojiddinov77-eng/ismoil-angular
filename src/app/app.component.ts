@@ -1,71 +1,35 @@
-import { Component, inject, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { MainComponent } from './main/main.component';
-import { ListComponent } from './list/list.component';
-import { HamilionComponent } from './hamilion/hamilion.component';
-import { AdminComponent } from './admin/admin.component';
-import { bro, mylist } from './store';
 import { CurrencyPipe } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-interface broo {
-  userId: number,
-  id: number,
-  title: string
-}
+import { ManComponent } from './man/man.component';
+import { WomenComponent } from './women/women.component';
+import { KidsComponent } from './kids/kids.component';
+import { SportClothesComponent } from './sport-clothes/sport-clothes.component';
+import { DiscountComponent } from './discount/discount.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MainComponent, ListComponent, HamilionComponent, AdminComponent, RouterLink, CurrencyPipe],
+  imports: [
+    RouterOutlet,
+    RouterLink,
+    CurrencyPipe,
+    ManComponent,
+    WomenComponent,
+    KidsComponent,
+    SportClothesComponent,
+    DiscountComponent
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
-  providers: [mylist]
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'signal';
-  url = 'https://jsonplaceholder.typicode.com/todos/'
-  ingbro = inject(mylist)
-  http = inject(HttpClient)
-  user: broo[] = []
-  geter() {
-    this.http.get<broo[]>(this.url).subscribe(data => {
-      this.user = data
-      console.log(data)
-    })
-  }
-  newpost() {
-    let bro = {
-      userId: 23,
-      id: 234,
-      title: 'brooooo'
-    }
-    this.http.post(this.url, bro).subscribe(data => {
-      console.log(data)
-    })
-  }
-  puter(n: number) {
-    let bro = {
-      userId: 233,
-      id: 2334,
-      title: 'brooooo'
-    }
-    this.http.put(`https://jsonplaceholder.typicode.com/todos/${n}`, bro).subscribe(data => {
-      console.log(data)
-    })
-  }
-  patcher(n: number) {
-    let bro = {
-      title: 'brooooo'
-    }
-    this.http.patch(`https://jsonplaceholder.typicode.com/todos/${n}`, bro).subscribe(data => {
-      console.log(data)
-    })
-  }
-  del(n: number) {
-    this.http.delete(`https://jsonplaceholder.typicode.com/todos/${n}`).subscribe(data => {
-      console.log(data)
-    })
-  }
 
+  onSearch(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    console.log('Search query:', input.value);
+    // Implement search logic here (e.g., filter products or navigate to search results)
+  }
 }
 
