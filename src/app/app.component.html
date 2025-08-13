@@ -42,7 +42,7 @@
     </ul>
     <div class="nav-right">
         <div class="search-bar">
-            <input type="text" placeholder="Search products..." (input)="onSearch($event)">
+            <input type="text" placeholder="Search products...">
             <i class="fas fa-search"></i>
         </div>
         <ul class="nav-icons">
@@ -52,3 +52,63 @@
     </div>
 </nav>
 <router-outlet></router-outlet>
+<section class="section">
+    <div class="markaz" routerLink="/man">
+        <img src="assets/anomaly-WWesmHEgXDs-unsplash.jpg" alt="man">
+        <h3>Man</h3>
+    </div>
+    <div class="markaz" routerLink="/women">
+        <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            alt="women">
+        <h3>Women</h3>
+    </div>
+    <div class="markaz" routerLink="/kids">
+        <img src="assets/brytny-com-C4rXIFSzEXk-unsplash.jpg" alt="kids">
+        <h3>Kids</h3>
+    </div>
+    <div class="markaz" routerLink="/sport-clothes">
+        <img src="assets/florian-kurrasch-zkctapwhzxc-unsplash.jpg" alt="sport">
+        <h3>Sport</h3>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-column">
+            <h4>Biz haqimizda</h4>
+            <ul>
+                <li><a href="#">Kompaniya haqida</a></li>
+                <li><a href="#">Karyera</a></li>
+                <li><a href="#">Yangiliklar</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Yordam</h4>
+            <ul>
+                <li><a href="#">Aloqa</a></li>
+                <li><a href="#">Yetkazib berish</a></li>
+                <li><a href="#">Qaytarish</a></li>
+                <li><a href="#">FAQ</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Huquqiy</h4>
+            <ul>
+                <li><a href="#">Maxfiylik siyosati</a></li>
+                <li><a href="#">Foydalanish shartlari</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Bizni kuzatib boring</h4>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 Sizning Brendingiz. Barcha huquqlar himoyalangan.</p>
+    </div>
+</footer>

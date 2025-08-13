@@ -6,7 +6,7 @@ import { SportClothesComponent } from './sport-clothes/sport-clothes.component';
 import { DiscountComponent } from './discount/discount.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/man', pathMatch: 'full' },
+    { path: '', redirectTo: '/app', pathMatch: 'full' },
     { path: 'man', component: ManComponent },
     { path: 'man/footwear', component: ManComponent },
     { path: 'man/clothing', component: ManComponent },

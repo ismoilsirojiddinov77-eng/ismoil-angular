@@ -26,6 +26,7 @@ import { DiscountComponent } from './discount/discount.component';
 export class AppComponent {
   title = 'signal';
 
+
   onSearch(event: Event): void {
     const input = event.target as HTMLInputElement;
     console.log('Search query:', input.value);
