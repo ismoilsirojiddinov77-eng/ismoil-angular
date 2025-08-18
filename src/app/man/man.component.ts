@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-
+import { Component, inject } from '@angular/core';
+import { AllserveService } from '../allserve.service';
 @Component({
   selector: 'app-man',
   standalone: true,
@@ -8,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './man.component.css'
 })
 export class ManComponent {
+  server = inject(AllserveService)
 
-}
+} 

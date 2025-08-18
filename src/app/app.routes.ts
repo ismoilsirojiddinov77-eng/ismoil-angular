@@ -4,9 +4,11 @@ import { WomenComponent } from './women/women.component';
 import { KidsComponent } from './kids/kids.component';
 import { SportClothesComponent } from './sport-clothes/sport-clothes.component';
 import { DiscountComponent } from './discount/discount.component';
+import { BoshlangichComponent } from './boshlangich/boshlangich.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/app', pathMatch: 'full' },
+    { path: '', redirectTo: 'boshlangich', pathMatch: 'full' },
+    { path: 'boshlangich', component: BoshlangichComponent },
     { path: 'man', component: ManComponent },
     { path: 'man/footwear', component: ManComponent },
     { path: 'man/clothing', component: ManComponent },

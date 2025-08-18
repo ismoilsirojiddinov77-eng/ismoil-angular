@@ -1,43 +1,29 @@
 <nav>
+    <ul id="home">
+        <li>
+            <a routerLink="/boshlangich" style="text-decoration: none; color: white;">Home</a>
+        </li>
+    </ul>
     <ul class="nav-links">
         <li class="dropdown">
             <a routerLink="/man" class="dropbtn">Man</a>
-            <div class="dropdown-content">
-                <a routerLink="/man/footwear">Footwear</a>
-                <a routerLink="/man/clothing">Clothing</a>
-                <a routerLink="/man/accessories">Accessories</a>
-            </div>
+
         </li>
         <li class="dropdown">
             <a routerLink="/women" class="dropbtn">Women</a>
-            <div class="dropdown-content">
-                <a routerLink="/women/footwear">Footwear</a>
-                <a routerLink="/women/clothing">Clothing</a>
-                <a routerLink="/women/jewelry">Jewelry</a>
-            </div>
+
         </li>
         <li class="dropdown">
             <a routerLink="/kids" class="dropbtn">Kids</a>
-            <div class="dropdown-content">
-                <a routerLink="/kids/footwear">Footwear</a>
-                <a routerLink="/kids/clothing">Clothing</a>
-                <a routerLink="/kids/toys">Toys</a>
-            </div>
+
         </li>
         <li class="dropdown">
             <a routerLink="/sport-clothes" class="dropbtn">Sport Clothes</a>
-            <div class="dropdown-content">
-                <a routerLink="/sport-clothes/activewear">Activewear</a>
-                <a routerLink="/sport-clothes/gear">Gear</a>
-                <a routerLink="/sport-clothes/accessories">Accessories</a>
-            </div>
+
         </li>
         <li class="dropdown">
             <a routerLink="/discount" class="dropbtn">Discount</a>
-            <div class="dropdown-content">
-                <a routerLink="/discount/clearance">Clearance</a>
-                <a routerLink="/discount/seasonal">Seasonal Sales</a>
-            </div>
+
         </li>
     </ul>
     <div class="nav-right">
@@ -52,25 +38,7 @@
     </div>
 </nav>
 <router-outlet></router-outlet>
-<section class="section">
-    <div class="markaz" routerLink="/man">
-        <img src="assets/anomaly-WWesmHEgXDs-unsplash.jpg" alt="man">
-        <h3>Man</h3>
-    </div>
-    <div class="markaz" routerLink="/women">
-        <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-            alt="women">
-        <h3>Women</h3>
-    </div>
-    <div class="markaz" routerLink="/kids">
-        <img src="assets/brytny-com-C4rXIFSzEXk-unsplash.jpg" alt="kids">
-        <h3>Kids</h3>
-    </div>
-    <div class="markaz" routerLink="/sport-clothes">
-        <img src="assets/florian-kurrasch-zkctapwhzxc-unsplash.jpg" alt="sport">
-        <h3>Sport</h3>
-    </div>
-</section>
+
 
 <footer class="footer">
     <div class="footer-container">
