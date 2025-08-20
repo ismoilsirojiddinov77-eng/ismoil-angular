@@ -6,7 +6,11 @@ export interface ClothingItem {
   price: number;
   imgurl: string;
   discount?: number;
+  num?:number;
   liked: boolean;
+  color:string;
+  type:string;
+  size:string
 }
 
 @Injectable({
@@ -20,74 +24,50 @@ export class AllserveService {
       price: 120,
       imgurl: 'assets/anomaly-WWesmHEgXDs-unsplash.jpg',
       discount: 20,
-      liked: false
+      liked: false,
+      color:'white',
+      type: 'T-short',
+      size:'XL'
     },
     {
       id: 2,
-      name: 'Erkaklar futbolkasi',
+      name: 'Erkaklar futbo‘lkasi',
       price: 50,
       imgurl: 'assets/le-sixieme-reve-yn1ohrn0_5Q-unsplash.jpg',
-      liked: false
-    }, {
-      id: 2,
-      name: 'Erkaklar futbolkasi',
-      price: 50,
-      imgurl: 'assets/le-sixieme-reve-yn1ohrn0_5Q-unsplash.jpg',
-      liked: false
-    }, {
-      id: 2,
-      name: 'Erkaklar futbolkasi',
-      price: 50,
-      imgurl: 'assets/le-sixieme-reve-yn1ohrn0_5Q-unsplash.jpg',
-      liked: false
-    },
-    {
-      id: 2,
-      name: 'Erkaklar futbolkasi',
-      price: 50,
-      imgurl: 'assets/le-sixieme-reve-yn1ohrn0_5Q-unsplash.jpg',
-      liked: false
-    }, {
-      id: 2,
-      name: 'Erkaklar futbolkasi',
-      price: 50,
-      imgurl: 'assets/le-sixieme-reve-yn1ohrn0_5Q-unsplash.jpg',
-      liked: false
-    }, {
-      id: 2,
-      name: 'Erkaklar futbolkasi',
-      price: 50,
-      imgurl: 'assets/le-sixieme-reve-yn1ohrn0_5Q-unsplash.jpg',
-      liked: false
-    }, {
-      id: 2,
-      name: 'Erkaklar futbolkasi',
-      price: 50,
-      imgurl: 'assets/le-sixieme-reve-yn1ohrn0_5Q-unsplash.jpg',
-      liked: false
-    }, {
-      id: 2,
-      name: 'Erkaklar futbolkasi',
-      price: 50,
-      imgurl: 'assets/le-sixieme-reve-yn1ohrn0_5Q-unsplash.jpg',
-      liked: false
-    }, {
-      id: 2,
-      name: 'Erkaklar futbolkasi',
-      price: 50,
-      imgurl: 'assets/le-sixieme-reve-yn1ohrn0_5Q-unsplash.jpg',
-      liked: false
-    }, {
-      id: 2,
-      name: 'Erkaklar futbolkasi',
-      price: 50,
-      imgurl: 'assets/le-sixieme-reve-yn1ohrn0_5Q-unsplash.jpg',
-      liked: false
-    },
-    // shu tarzda istalgancha item qo’shish mumkin
+      liked: false,  color:'white',
+      type: 'T-short',
+      size:'XL'
+    }, 
+      
+  
+    
   ]);
 
   readonly items = this.allitems.asReadonly();
+
+  fav:ClothingItem[]=[];
+  savat:ClothingItem[]=[];
+
+  addtofav(par:ClothingItem){
+const bro=this.fav.find(el=>el.id===par.id)
+if(bro){
+  bro.num?bro.num++:bro.num=1;
+   console.log(par)
+}else{
+  this.fav.push({...par,num:1})
+  console.log(par)
+}
+  }
+
+  addtosavat(par:ClothingItem){
+const bro =this.savat.find(el=>el.id===par.id)
+if(bro){
+  bro.num?bro.num++:bro.num=1
+}
+else{
+  this.savat.push({...par, num:1})
+}
+  }
 
   toggleLike(id: number) {
     this.allitems.update(items =>
