@@ -10,7 +10,7 @@ body {
 nav {
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 100000;
     /* boshqa elementlardan ustun turishi uchun */
     display: flex;
     justify-content: space-between;
@@ -137,7 +137,6 @@ nav {
     bottom: 0;
     right: 0;
     left: 0;
-    z-index: 10;
 }
 
 .footer-container {
@@ -198,8 +197,4 @@ nav {
 
 #home {
     color: white;
-}
-
-ul {
-    list-style: none;
 }

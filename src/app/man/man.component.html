@@ -1,83 +1,84 @@
 <div class="topper"></div>
 <div class="main">
-  
-    <div class="left">
-       
-       <a href="/"> all</a> 
-       <a href="/">T-short</a>
-       <a href="/">hat</a>
-       <a href="/">trouthers</a>
-       <a href="/">shoes</a>
-      <div class="filter-section">
-  
-  <div class="filter-title" (click)="toggleFilter('fit')">
-    Colors
-    
-  </div>
-  <div class="filter-options" *ngIf="isOpen['fit']">
-    <label><input type="checkbox"> red</label>
-    <label><input type="checkbox"> white</label>
-    <label><input type="checkbox"> black</label>
-    <label><input type="checkbox"> green</label>
-    <label><input type="checkbox"> blue</label>
-    <label><input type="checkbox"> brown</label>
-  </div>
 
-  
-  <div class="filter-title" (click)="toggleFilter('features')">
-    Brends
-    
-  </div>
-  <div class="filter-options" *ngIf="isOpen['features']">
-    <label><input type="checkbox"> Adidas</label>
-    <label><input type="checkbox"> Nke</label>
-    <label><input type="checkbox"> Polo</label>
-    <label><input type="checkbox"> Puma</label>
-    <label><input type="checkbox"> Other</label>
-    
-  </div>
+  <div class="left">
 
-  <div class="filter-title" (click)="toggleFilter('size')">
-    sizes
-    
-  </div>
-  <div class="filter-options" *ngIf="isOpen['size']">
-    <div class="size">
-        <div class="xl">M</div>
-        <div class="xl">S</div>
-        <div class="xl">SS</div>
-        <div class="xl">XS</div>
-        <div class="xl">XL</div>
-        <div class="xl">XXL</div>
-        <div class="xl">XXXL</div>
-       
-    </div>
-    
-  </div>
-</div>
+    <a href="/"> all</a>
+    <a href="/">T-short</a>
+    <a href="/">hat</a>
+    <a href="/">trouthers</a>
+    <a href="/">shoes</a>
+    <div class="filter-section">
 
-  
-        
-    </div>
-    <div class="right">
-        @for (item of server.allitems(); track $index) {
-        <div class="box">
-            <i id="ic" class="fas  fa-heart" (click)="server.addtofav(item)"></i>
-            <i id="icon" class="fas fa-shopping-cart" (click)="server.addtosavat(item)"></i>
-            <div class="img">
-                <img src="{{item.imgurl}}" alt="">
-            </div>
+      <div class="filter-title" (click)="toggleFilter('fit')">
+        Colors
 
-            <div class="info">
-                <p>{{item.name}}</p>
-                <p>${{item.price}}</p>
-                
-                
+      </div>
+      <div class="filter-options" *ngIf="isOpen['fit']">
+        <label><input type="checkbox"> red</label>
+        <label><input type="checkbox"> white</label>
+        <label><input type="checkbox"> black</label>
+        <label><input type="checkbox"> green</label>
+        <label><input type="checkbox"> blue</label>
+        <label><input type="checkbox"> brown</label>
+      </div>
 
-            </div>
+
+      <div class="filter-title" (click)="toggleFilter('features')">
+        Brends
+
+      </div>
+      <div class="filter-options" *ngIf="isOpen['features']">
+        <label><input type="checkbox"> Adidas</label>
+        <label><input type="checkbox"> Nke</label>
+        <label><input type="checkbox"> Polo</label>
+        <label><input type="checkbox"> Puma</label>
+        <label><input type="checkbox"> Other</label>
+
+      </div>
+
+      <div class="filter-title" (click)="toggleFilter('size')">
+        sizes
+
+      </div>
+      <div class="filter-options" *ngIf="isOpen['size']">
+        <div class="size">
+          <div class="xl">M</div>
+          <div class="xl">S</div>
+          <div class="xl">SS</div>
+          <div class="xl">XS</div>
+          <div class="xl">XL</div>
+          <div class="xl">XXL</div>
+          <div class="xl">XXXL</div>
 
         </div>
-        }
+
+      </div>
+    </div>
+
+
+
+  </div>
+  <div class="right">
+    @for (item of server.allitems(); track $index) {
+    <div class="box">
+      <i id="ic" class="fas  fa-heart" [style.color]="item.liked ?  'red':'white'"
+        (click)="server.addToFav(item); server.liked(item.id)"></i>
+      <i id="icon" class="fas fa-shopping-cart" (click)="server.addToSavat(item)"></i>
+      <div class="img">
+        <img src="{{item.imgurl}}" alt="">
+      </div>
+
+      <div class="info">
+        <p>{{item.name}}</p>
+        <p>${{item.price}}</p>
+
+
+
+      </div>
 
     </div>
+    }
+
+  </div>
 </div>
