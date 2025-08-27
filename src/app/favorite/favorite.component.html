@@ -1,21 +1,20 @@
 <div class="main">
-    <h3>my favorit items</h3>
-    @for (item of server.fav(); track $index) {
+  <h3>My favorite items</h3>
+  @for (item of server.favWithUpdatedLikedStatus(); track item.id) {
     <div class="box">
-
-        <div class="img">
-            <img src="{{item.imgurl}}" alt="">
-        </div>
-
-        <div class="info">
-            <p>{{item.name}}</p>
-            <p>${{item.price}}</p>
-
-
-
-        </div>
-
+      <i id="ic" class="fas fa-heart" 
+         [style.color]="item.liked ? 'red' : 'white'"
+         (click)="server.removeFromFav(item.id)"></i>
+      <i id="icon" class="fas fa-shopping-cart" 
+         [style.color]="item.basket ? 'grey' : 'white'" 
+         (click)="server.addToSavat(item); server.basket(item.id)"></i>
+      <div class="img">
+        <img [src]="item.imgurl" alt="{{item.name}}">
+      </div>
+      <div class="info">
+        <p>{{item.name}}</p>
+        <p>${{item.price}}</p>
+      </div>
     </div>
-    }
-
+  }
 </div>

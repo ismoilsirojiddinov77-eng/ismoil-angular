@@ -1,1 +1,47 @@
-<p>savat works!</p>
+<div class="main">
+  <h3>your products</h3>
+  @for (item of server.savatWithUpdatedStatus(); track item.id) {
+    <div class="box">
+      <i id="ic" class="fas fa-heart" 
+         [style.color]="item.liked ? 'red' : 'white'"
+         (click)="server.addToFav(item); server.liked(item.id)"></i>
+      
+      <!-- Miqdor boshqaruvi yuqorida -->
+      <div class="quantity-control-top">
+        <button class="qty-btn-top" (click)="decreaseQuantity(item.id)">-</button>
+     
+        <button class="qty-btn-top" (click)="increaseQuantity(item.id)">+</button>
+           @if ((item.num || 1) > 1) {
+          <span class="quantity-badge">{{item.num || 1}}</span>
+        }
+      </div>
+      
+      <i id="remove" class="fas fa-trash" 
+         (click)="server.removeFromSavat(item.id)" title="Savatdan olib tashlash"></i>
+      <div class="img">
+        <img [src]="item.imgurl" alt="{{item.name}}">
+      </div>
+      <div class="info">
+        <p>{{item.name}}</p>
+        <p>${{item.price}}</p>
+        
+        @if (item.num && item.num > 1) {
+          <p class="total-price">Jami: ${{item.price * item.num}}</p>
+        }
+      </div>
+    </div>
+  }
+  
+  @if (server.savatWithUpdatedStatus().length === 0) {
+    <div class="empty-cart">
+      <p>Savatingiz bo'sh</p>
+      <i class="fas fa-shopping-cart empty-icon"></i>
+    </div>
+  } @else {
+    <div class="cart-summary">
+      <h4>Jami summa: ${{getTotalPrice()}}</h4>
+      <button class="checkout-btn">Buyurtma berish</button>
+      <button class="clear-btn" (click)="clearCart()">Savatni tozalash</button>
+    </div>
+  }
+</div>

@@ -1,84 +1,73 @@
+
 <div class="topper"></div>
 <div class="main">
-
   <div class="left">
+    <p id="cursive">man's clothing</p>
+    <a href="javascript:void(0)" [class.selected]="server.selectedTypes().size === 0" (click)="clearTypes()">All</a>
+    <a href="javascript:void(0)" [class.selected]="server.selectedTypes().has('Tops')" (click)="toggleType('Tops')">Tops</a>
+    <a href="javascript:void(0)" [class.selected]="server.selectedTypes().has('Hat')" (click)="toggleType('Hat')">Hat</a>
+    <a href="javascript:void(0)" [class.selected]="server.selectedTypes().has('Trousers')" (click)="toggleType('Trousers')">Trousers</a>
+    <a href="javascript:void(0)" [class.selected]="server.selectedTypes().has('Shoes')" (click)="toggleType('Shoes')">Shoes</a>
 
-    <a href="/"> all</a>
-    <a href="/">T-short</a>
-    <a href="/">hat</a>
-    <a href="/">trouthers</a>
-    <a href="/">shoes</a>
     <div class="filter-section">
-
+      <!-- Ranglar filtri -->
       <div class="filter-title" (click)="toggleFilter('fit')">
         Colors
-
       </div>
       <div class="filter-options" *ngIf="isOpen['fit']">
-        <label><input type="checkbox"> red</label>
-        <label><input type="checkbox"> white</label>
-        <label><input type="checkbox"> black</label>
-        <label><input type="checkbox"> green</label>
-        <label><input type="checkbox"> blue</label>
-        <label><input type="checkbox"> brown</label>
+        <label><input type="checkbox" [checked]="server.selectedColors().has('red')" (change)="toggleColor('red')"> red</label>
+        <label><input type="checkbox" [checked]="server.selectedColors().has('white')" (change)="toggleColor('white')"> white</label>
+        <label><input type="checkbox" [checked]="server.selectedColors().has('black')" (change)="toggleColor('black')"> black</label>
+        <label><input type="checkbox" [checked]="server.selectedColors().has('green')" (change)="toggleColor('green')"> green</label>
+        <label><input type="checkbox" [checked]="server.selectedColors().has('blue')" (change)="toggleColor('blue')"> blue</label>
+        <label><input type="checkbox" [checked]="server.selectedColors().has('brown')" (change)="toggleColor('brown')"> brown</label>
       </div>
 
-
+      <!-- Brendlar filtri -->
       <div class="filter-title" (click)="toggleFilter('features')">
         Brends
-
       </div>
       <div class="filter-options" *ngIf="isOpen['features']">
-        <label><input type="checkbox"> Adidas</label>
-        <label><input type="checkbox"> Nke</label>
-        <label><input type="checkbox"> Polo</label>
-        <label><input type="checkbox"> Puma</label>
-        <label><input type="checkbox"> Other</label>
-
+        <label><input type="checkbox" [checked]="server.selectedBrands().has('Adidas')" (change)="toggleBrand('Adidas')"> Adidas</label>
+        <label><input type="checkbox" [checked]="server.selectedBrands().has('Nike')" (change)="toggleBrand('Nike')"> Nike</label>
+        <label><input type="checkbox" [checked]="server.selectedBrands().has('Polo')" (change)="toggleBrand('Polo')"> Polo</label>
+        <label><input type="checkbox" [checked]="server.selectedBrands().has('Puma')" (change)="toggleBrand('Puma')"> Puma</label>
+        <label><input type="checkbox" [checked]="server.selectedBrands().has('Other')" (change)="toggleBrand('Other')"> Other</label>
       </div>
 
+      <!-- O‘lchamlar filtri -->
       <div class="filter-title" (click)="toggleFilter('size')">
-        sizes
-
+        Sizes
       </div>
       <div class="filter-options" *ngIf="isOpen['size']">
         <div class="size">
-          <div class="xl">M</div>
-          <div class="xl">S</div>
-          <div class="xl">SS</div>
-          <div class="xl">XS</div>
-          <div class="xl">XL</div>
-          <div class="xl">XXL</div>
-          <div class="xl">XXXL</div>
-
+          <div class="xl" [class.selected]="server.selectedSizes().has('M')" (click)="toggleSize('M')">M</div>
+          <div class="xl" [class.selected]="server.selectedSizes().has('S')" (click)="toggleSize('S')">S</div>
+          <div class="xl" [class.selected]="server.selectedSizes().has('SS')" (click)="toggleSize('SS')">SS</div>
+          <div class="xl" [class.selected]="server.selectedSizes().has('XS')" (click)="toggleSize('XS')">XS</div>
+          <div class="xl" [class.selected]="server.selectedSizes().has('XL')" (click)="toggleSize('XL')">XL</div>
+          <div class="xl" [class.selected]="server.selectedSizes().has('XXL')" (click)="toggleSize('XXL')">XXL</div>
+          <div class="xl" [class.selected]="server.selectedSizes().has('XXXL')" (click)="toggleSize('XXXL')">XXXL</div>
         </div>
-
       </div>
     </div>
-
-
-
   </div>
+
   <div class="right">
-    @for (item of server.allitems(); track $index) {
-    <div class="box">
-      <i id="ic" class="fas  fa-heart" [style.color]="item.liked ?  'red':'white'"
-        (click)="server.addToFav(item); server.liked(item.id)"></i>
-      <i id="icon" class="fas fa-shopping-cart" (click)="server.addToSavat(item)"></i>
-      <div class="img">
-        <img src="{{item.imgurl}}" alt="">
+    @for (item of server.filteredItems(); track item.id) {
+      <div class="box">
+        <i id="ic" class="fas fa-heart" [style.color]="item.liked ? 'red' : 'white'"
+          (click)="server.addToFav(item); server.liked(item.id)"></i>
+        <i id="icon" class="fas fa-shopping-cart" [style.color]="item.basket? 'grey' :'white'" 
+         (click)="server.addToSavat(item); server.basket(item.id)"></i>
+        <div class="img">
+          <img [src]="item.imgurl" alt="{{item.name}}">
+        </div>
+        <div class="info">
+          <p>{{item.name}}</p>
+          <p>${{item.price}}</p>
+        </div>
       </div>
-
-      <div class="info">
-        <p>{{item.name}}</p>
-        <p>${{item.price}}</p>
-
-
-
-      </div>
-
-    </div>
     }
-
   </div>
 </div>
