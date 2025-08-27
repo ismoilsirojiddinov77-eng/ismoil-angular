@@ -1,17 +1,23 @@
-
 import { Component, inject } from '@angular/core';
-import { AllserveService } from '../allserve.service';
+import { AllserveService, ClothingItem } from '../allserve.service';
 import { NgIf } from '@angular/common';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-man',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf, RouterLink, RouterModule],
   templateUrl: './man.component.html',
   styleUrl: './man.component.css'
 })
 export class ManComponent {
   server = inject(AllserveService);
+  router = inject(Router);
+
+  navigateToAbzor(item: ClothingItem) {
+    this.server.setSelectedItem(item); // Tanlangan mahsulotni xizmatga o'rnatish
+    this.router.navigate(['abzor']);
+  }
 
   isOpen: { [key: string]: boolean } = {
     fit: false,

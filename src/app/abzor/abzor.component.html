@@ -1,0 +1,41 @@
+<div class="product-details" *ngIf="selectedItem; else noProduct">
+    <div class="product-container">
+        <!-- Mahsulot rasmi -->
+        <div class="product-image">
+            <img [src]="selectedItem.imgurl" alt="{{selectedItem.name}}" />
+        </div>
+
+        <!-- Mahsulot ma'lumotlari -->
+        <div class="product-info">
+            <h1>{{selectedItem.name}}</h1>
+            <p class="price">Price: ${{selectedItem.price}}</p>
+            <p *ngIf="selectedItem.discount"><strong>Discount:</strong> {{selectedItem.discount}}%</p>
+            <p><strong>Brand:</strong> {{selectedItem.type}}</p>
+            <p><strong>Color:</strong> {{selectedItem.color}}</p>
+            <p><strong>Size:</strong> {{selectedItem.size}}</p>
+            <p><strong>Category:</strong> {{selectedItem.filter}}</p>
+
+            <!-- Harakat tugmalari -->
+            <div class="actions">
+                <button class="btn-favorite" (click)="addToFavorites()">
+                    <i class="fas fa-heart" [style.color]="selectedItem.liked ? 'red' : 'grey'"></i>
+                    {{ selectedItem.liked ? 'Sevimlilardan olib tashlash' : 'Sevimlilarga qo\'shish' }}
+                </button>
+                <button class="btn-cart" (click)="addToCart()">
+                    <i class="fas fa-shopping-cart" [style.color]="selectedItem.basket ? 'grey' : 'white'"></i>
+                    {{ selectedItem.basket ? 'Savatdan olib tashlash' : 'Savatga qo\'shish' }}
+                </button>
+            </div>
+
+            <!-- Orqaga qaytish -->
+            <a routerLink="/man" class="back-link">Mahsulotlarga qaytish</a>
+        </div>
+    </div>
+</div>
+
+<ng-template #noProduct>
+    <div class="no-product">
+        <p>Hech qanday mahsulot tanlanmadi. Iltimos, mahsulot tanlash uchun orqaga qayting.</p>
+        <a routerLink="/man">Mahsulotlarga qaytish</a>
+    </div>
+</ng-template>

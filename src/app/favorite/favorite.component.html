@@ -1,20 +1,35 @@
 <div class="main">
   <h3>My favorite items</h3>
   @for (item of server.favWithUpdatedLikedStatus(); track item.id) {
-    <div class="box">
-      <i id="ic" class="fas fa-heart" 
-         [style.color]="item.liked ? 'red' : 'white'"
-         (click)="server.removeFromFav(item.id)"></i>
-      <i id="icon" class="fas fa-shopping-cart" 
-         [style.color]="item.basket ? 'grey' : 'white'" 
-         (click)="server.addToSavat(item); server.basket(item.id)"></i>
-      <div class="img">
-        <img [src]="item.imgurl" alt="{{item.name}}">
-      </div>
-      <div class="info">
-        <p>{{item.name}}</p>
-        <p>${{item.price}}</p>
-      </div>
+  <div class="box">
+    <!-- <i id="ic" class="fas fa-heart" [style.color]="item.liked ? 'red' : 'white'"
+      (click)="server.addToFav(item);server.removeFromFav(item.id); server.liked(item.id)"></i> -->
+
+    <!-- Miqdor boshqaruvi yuqorida -->
+
+
+    <i id="remove" class="fas fa-heart" (click)="server.removeFromFav(item.id)" title="favoritedan olib tashlash"></i>
+    <div class="img">
+      <img [src]="item.imgurl" alt="{{item.name}}">
     </div>
+    <div class="info">
+      <p>{{item.name}}</p>
+      <p>${{item.price}}</p>
+
+    </div>
+  </div>
+  }
+
+  @if (server.favWithUpdatedLikedStatus().length === 0) {
+  <div class="empty-cart">
+    <p>Savatingiz bo'sh</p>
+    <i class="fas fa-shopping-cart empty-icon"></i>
+  </div>
+  } @else {
+  <div class="cart-summary">
+
+    <button class="checkout-btn">Buyurtma berish</button>
+    <button class="clear-btn" (click)="clearCart()">Savatni tozalash</button>
+  </div>
   }
 </div>

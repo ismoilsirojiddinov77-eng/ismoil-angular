@@ -9,6 +9,18 @@ import { AllserveService } from '../allserve.service';
   styleUrl: './favorite.component.css'
 })
 export class FavoriteComponent {
-  server=inject(AllserveService)
+  server = inject(AllserveService)
+
+  // Savatni tozalash
+  clearCart() {
+    // Barcha itemlarning basket holatini false qilish
+    const favitem = this.server.fav();
+    favitem.forEach(item => {
+      this.server.liked(item.id);
+    });
+
+    // Savatni tozalash
+    this.server.fav.set([]);
+  }
 
 }
