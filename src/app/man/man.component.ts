@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AllserveService, ClothingItem } from '../allserve.service';
 import { NgIf } from '@angular/common';
 import { Router, RouterLink, RouterModule } from '@angular/router';
@@ -10,9 +10,12 @@ import { Router, RouterLink, RouterModule } from '@angular/router';
   templateUrl: './man.component.html',
   styleUrl: './man.component.css'
 })
-export class ManComponent {
+export class ManComponent implements OnInit {
   server = inject(AllserveService);
   router = inject(Router);
+  ngOnInit(): void {
+    this.server.selectedSection.set('men')
+  }
 
   navigateToAbzor(item: ClothingItem) {
     this.server.setSelectedItem(item); // Tanlangan mahsulotni xizmatga o'rnatish
