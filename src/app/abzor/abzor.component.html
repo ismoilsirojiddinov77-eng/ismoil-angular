@@ -1,41 +1,130 @@
 <div class="product-details" *ngIf="selectedItem; else noProduct">
-    <div class="product-container">
-        <!-- Mahsulot rasmi -->
-        <div class="product-image">
-            <img [src]="selectedItem.imgurl" alt="{{selectedItem.name}}" />
-        </div>
-
-        <!-- Mahsulot ma'lumotlari -->
-        <div class="product-info">
-            <h1>{{selectedItem.name}}</h1>
-            <p class="price">Price: ${{selectedItem.price}}</p>
-            <p *ngIf="selectedItem.discount"><strong>Discount:</strong> {{selectedItem.discount}}%</p>
-            <p><strong>Brand:</strong> {{selectedItem.type}}</p>
-            <p><strong>Color:</strong> {{selectedItem.color}}</p>
-            <p><strong>Size:</strong> {{selectedItem.size}}</p>
-            <p><strong>Category:</strong> {{selectedItem.filter}}</p>
-
-            <!-- Harakat tugmalari -->
-            <div class="actions">
-                <button class="btn-favorite" (click)="addToFavorites()">
-                    <i class="fas fa-heart" [style.color]="selectedItem.liked ? 'red' : 'grey'"></i>
-                    {{ selectedItem.liked ? 'Sevimlilardan olib tashlash' : 'Sevimlilarga qo\'shish' }}
-                </button>
-                <button class="btn-cart" (click)="addToCart()">
-                    <i class="fas fa-shopping-cart" [style.color]="selectedItem.basket ? 'grey' : 'white'"></i>
-                    {{ selectedItem.basket ? 'Savatdan olib tashlash' : 'Savatga qo\'shish' }}
-                </button>
-            </div>
-
-            <!-- Orqaga qaytish -->
-            <a routerLink="/man" class="back-link">Mahsulotlarga qaytish</a>
-        </div>
+  <div class="product-container">
+    <!-- Mahsulot rasmi -->
+    <div class="product-image">
+      <img [src]="selectedItem.imgurl" alt="{{selectedItem.name}}" />
+      <div class="image-overlay">
+        <span class="discount-badge" *ngIf="selectedItem.discount">
+          -{{selectedItem.discount}}%
+        </span>
+      </div>
     </div>
+
+    <!-- Mahsulot ma'lumotlari -->
+    <div class="product-info">
+      <div class="product-header">
+        <h1>{{selectedItem.name}}</h1>
+        <div class="rating">
+          <span class="stars">★★★★☆</span>
+          <span class="rating-count">(4.2 / 5)</span>
+        </div>
+      </div>
+      
+      <div class="price-section">
+        <div class="price-container">
+          <span class="current-price">${{selectedItem.price}}</span>
+          <span class="original-price" *ngIf="selectedItem.discount">
+            ${{(selectedItem.price * (1 + selectedItem.discount / 100)).toFixed(2)}}
+          </span>
+        </div>
+        <div class="savings" *ngIf="selectedItem.discount">
+          Siz ${{(selectedItem.price * selectedItem.discount / 100).toFixed(2)}}tejaysiz!
+        </div>
+      </div>
+
+      <div class="product-specs">
+        <div class="spec-item">
+          <span class="spec-label">Brend:</span>
+          <span class="spec-value">{{selectedItem.type}}</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">Rang:</span>
+          <span class="spec-value color-indicator">
+            <span class="color-dot" [style.background-color]="selectedItem.color"></span>
+            <!-- {{selectedItem.color | titlecase}} -->
+          </span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">O'lchami:</span>
+          <span class="spec-value size-badge">{{selectedItem.size}}</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">Kategoriya:</span>
+          <span class="spec-value">{{selectedItem.filter}}</span>
+        </div>
+      </div>
+
+      <div class="stock-status">
+        <i class="fas fa-check-circle"></i>
+        <span>Omborda mavjud</span>
+      </div>
+
+      <!-- Harakat tugmalari -->
+      <div class="actions">
+        <button class="btn-favorite" 
+                [class.active]="selectedItem.liked" 
+                (click)="addToFavorites()">
+          <i class="fas fa-heart"></i>
+          {{ selectedItem.liked ? 'Sevimlilardan olib tashlash' : 'Sevimlilarga qo\'shish' }}
+        </button>
+        
+        <button class="btn-cart" 
+                [class.active]="selectedItem.basket" 
+                (click)="selectedItem.basket ? goToCart() : addToCart()">
+          <i class="fas fa-shopping-cart"></i>
+          {{ selectedItem.basket ? 'Savatga o\'tish' : 'Savatga qo\'shish' }}
+        </button>
+      </div>
+
+      <div class="delivery-info">
+        <div class="delivery-item">
+          <i class="fas fa-truck"></i>
+          <span>Bepul yetkazib berish (50$ dan ortiq xaridlarda)</span>
+        </div>
+        <div class="delivery-item">
+          <i class="fas fa-shield-alt"></i>
+          <span>30 kunlik qaytarish kafolati</span>
+        </div>
+        <div class="delivery-item">
+          <i class="fas fa-clock"></i>
+          <span>2-3 kun ichida yetkazib berish</span>
+        </div>
+      </div>
+
+      <!-- Orqaga qaytish -->
+      <a routerLink="/man" class="back-link">
+        <i class="fas fa-arrow-left"></i>
+        Mahsulotlarga qaytish
+      </a>
+    </div>
+  </div>
+
+  <!-- Product Description -->
+  <div class="product-description">
+    <h3>Mahsulot haqida</h3>
+    <p>
+      Bu yuqori sifatli {{selectedItem.name}} zamonaviy uslub va qulaylikni birlashtiradi. 
+      Har kungi kiyim uchun ideal tanlov bo'lib, sizga ajoyib his-tuyg'u va ko'rinish beradi.
+    </p>
+    <ul>
+      <li>Yuqori sifatli materialdan tayyorlangan</li>
+      <li>Uzoq muddat xizmat qiladi</li>
+      <li>Oson parvarish qilish mumkin</li>
+      <li>Zamonaviy dizayn</li>
+    </ul>
+  </div>
 </div>
 
 <ng-template #noProduct>
-    <div class="no-product">
-        <p>Hech qanday mahsulot tanlanmadi. Iltimos, mahsulot tanlash uchun orqaga qayting.</p>
-        <a routerLink="/man">Mahsulotlarga qaytish</a>
+  <div class="no-product">
+    <div class="no-product-content">
+      <i class="fas fa-box-open"></i>
+      <h2>Hech qanday mahsulot tanlanmadi</h2>
+      <p>Mahsulot tafsilotlarini ko'rish uchun biror mahsulotni tanlang</p>
+      <a routerLink="/man" class="btn-back">
+        <i class="fas fa-arrow-left"></i>
+        Mahsulotlarga qaytish
+      </a>
     </div>
+  </div>
 </ng-template>

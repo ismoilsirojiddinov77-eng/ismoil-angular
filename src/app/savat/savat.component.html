@@ -1,47 +1,299 @@
-<div class="main">
-  <h3>your products</h3>
+<div class="main" [class.has-items]="server.savatWithUpdatedStatus().length > 0">
+  <h3>Buyurtmalar Savati</h3>
+  
+  <!-- Buyurtma holati indikatori -->
+  @if (orderStatus === 'ordered') {
+    <div class="order-status ordered">
+      <i class="fas fa-truck"></i>
+      <p>Buyurtmangiz qabul qilindi va yetkazilmoqda...</p>
+    </div>
+  } @else if (orderStatus === 'delivered') {
+    <div class="order-status delivered">
+      <i class="fas fa-check-circle"></i>
+      <p>Buyurtmangiz yetkazildi!</p>
+      <button class="new-order-btn" (click)="startNewOrder()">
+        <i class="fas fa-shopping-cart"></i>
+        Yangi buyurtma
+      </button>
+    </div>
+  }
+
   @for (item of server.savatWithUpdatedStatus(); track item.id) {
-    <div class="box">
-      <i id="ic" class="fas fa-heart" 
+    <div class="box" [class.ordered]="orderStatus === 'ordered'" [class.delivered]="orderStatus === 'delivered'">
+      <i id="ic" class="fas fa-heart"
          [style.color]="item.liked ? 'red' : 'white'"
-         (click)="server.addToFav(item); server.liked(item.id)"></i>
+         (click)="toggleFavorite(item)"></i>
       
       <!-- Miqdor boshqaruvi yuqorida -->
       <div class="quantity-control-top">
-        <button class="qty-btn-top" (click)="decreaseQuantity(item.id)">-</button>
-     
-        <button class="qty-btn-top" (click)="increaseQuantity(item.id)">+</button>
-           @if ((item.num || 1) > 1) {
+        <button class="qty-btn-top" 
+                [disabled]="orderStatus !== 'cart'"
+                (click)="decreaseQuantity(item.id)">-</button>
+        <button class="qty-btn-top" 
+                [disabled]="orderStatus !== 'cart'"
+                (click)="increaseQuantity(item.id)">+</button>
+        @if ((item.num || 1) > 1) {
           <span class="quantity-badge">{{item.num || 1}}</span>
         }
       </div>
       
-      <i id="remove" class="fas fa-trash" 
-         (click)="server.removeFromSavat(item.id)" title="Savatdan olib tashlash"></i>
+      <i id="remove" class="fas fa-trash"
+         [class.disabled]="orderStatus !== 'cart'"
+         (click)="orderStatus === 'cart' ? server.removeFromSavat(item.id) : null" 
+         title="Savatdan olib tashlash"></i>
+      
       <div class="img">
         <img [src]="item.imgurl" alt="{{item.name}}">
       </div>
+      
       <div class="info">
         <p>{{item.name}}</p>
         <p>${{item.price}}</p>
-        
         @if (item.num && item.num > 1) {
           <p class="total-price">Jami: ${{item.price * item.num}}</p>
         }
       </div>
     </div>
   }
-  
+
   @if (server.savatWithUpdatedStatus().length === 0) {
     <div class="empty-cart">
-      <p>Savatingiz bo'sh</p>
-      <i class="fas fa-shopping-cart empty-icon"></i>
+      <div class="empty-icon-container">
+        <i class="fas fa-shopping-cart empty-main-icon"></i>
+        <div class="floating-icons">
+          <i class="fas fa-shopping-bag floating-icon"></i>
+          <i class="fas fa-shopping-bag floating-icon"></i>
+          <i class="fas fa-shopping-bag floating-icon"></i>
+          <i class="fas fa-shopping-bag floating-icon"></i>
+        </div>
+      </div>
+      
+      <div class="empty-content">
+        <h2 class="empty-title">Sizning Savatingiz Bo'sh</h2>
+        <p class="empty-description">
+          Sizga yoqadigan mahsulotlarni qo'shish orqali savatni to'ldiring. 
+          Ajoyib mahsulotlarni kashf eting va keyinroq saqlang!
+        </p>
+        
+        <!-- <div class="action-buttons">
+          <button class="btn btn-primary" (click)="goToShop()">
+            <i class="fas fa-shopping-bag"></i>
+            Do'konga O'tish
+          </button>
+          <button class="btn btn-secondary" (click)="exploreCategories()">
+            <i class="fas fa-compass"></i>
+            Kategoriyalarni Ko'rish
+          </button>
+        </div> -->
+      </div>
+    </div>
+
+    <div class="suggested-section">
+      <h3 class="suggested-title">Sizga Yoqishi Mumkin Bo'lgan Mashhur Mahsulotlar</h3>
+      <div class="suggested-items">
+        <div class="suggested-item" >
+          <i class="fas fa-tshirt item-icon"></i>
+          <div class="item-name">Moda</div>
+          <div class="item-category">Kiyim & Uslub</div>
+        </div>
+        <div class="suggested-item" >
+          <i class="fas fa-laptop item-icon"></i>
+          <div class="item-name">Elektronika</div>
+          <div class="item-category">Texnologiya & Gadjetlar</div>
+        </div>
+        <div class="suggested-item" >
+          <i class="fas fa-home item-icon"></i>
+          <div class="item-name">Uy Dekori</div>
+          <div class="item-category">Uy & Bog'</div>
+        </div>
+        <!-- <div class="suggested-item" (click)="goToCategory('gaming')">
+          <i class="fas fa-gamepad item-icon"></i>
+          <div class="item-name">O'yinlar</div>
+          <div class="item-category">O'yin-kulgi</div>
+        </div> -->
+      </div>
     </div>
   } @else {
     <div class="cart-summary">
       <h4>Jami summa: ${{getTotalPrice()}}</h4>
-      <button class="checkout-btn">Buyurtma berish</button>
-      <button class="clear-btn" (click)="clearCart()">Savatni tozalash</button>
+      
+      @if (orderStatus === 'cart') {
+        <button class="checkout-btn" (click)="openOrderModal()">Buyurtma berish</button>
+        <button class="clear-btn" (click)="clearCart()">Savatni tozalash</button>
+      } @else if (orderStatus === 'ordered') {
+        <div class="order-info">
+          <p><i class="fas fa-clock"></i> Buyurtma yetkazilmoqda...</p>
+        </div>
+      } @else if (orderStatus === 'delivered') {
+        <div class="order-info">
+          <p><i class="fas fa-check"></i> Buyurtma yetkazildi</p>
+          <button class="new-order-btn" (click)="startNewOrder()">Yangi buyurtma</button>
+        </div>
+      }
     </div>
   }
 </div>
+
+<!-- Buyurtma berish modali -->
+@if (showOrderModal) {
+  <div class="modal-backdrop" (click)="onModalBackdropClick($event)">
+    <div class="order-modal">
+      <div class="modal-header">
+        <h2>Buyurtma berish</h2>
+        <button class="close-btn" (click)="closeOrderModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        <!-- Buyurtma ma'lumotlari -->
+        <div class="order-summary">
+          <h3>Buyurtma tafsilotlari</h3>
+          <div class="order-items">
+            @for (item of server.savatWithUpdatedStatus(); track item.id) {
+              <div class="order-item">
+                <img [src]="item.imgurl" alt="{{item.name}}" class="item-img">
+                <div class="item-details">
+                  <span class="item-name">{{item.name}}</span>
+                  <span class="item-price">${{item.price}} x {{item.num || 1}}</span>
+                </div>
+                <span class="item-total">${{item.price * (item.num || 1)}}</span>
+              </div>
+            }
+          </div>
+          <div class="total-summary">
+            <strong>Jami: ${{getTotalPrice()}}</strong>
+          </div>
+        </div>
+
+        <!-- Mijoz ma'lumotlari -->
+        <div class="customer-form">
+          <h3>Yetkazib berish ma'lumotlari</h3>
+          <form class="order-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">Ism *</label>
+                <input type="text" 
+                       id="firstName" 
+                       [(ngModel)]="orderData.firstName" 
+                       name="firstName" 
+                       placeholder="Ismingizni kiriting" 
+                       [class.error]="formErrors.firstName"
+                       required>
+                @if (formErrors.firstName) {
+                  <span class="error-message">{{formErrors.firstName}}</span>
+                }
+              </div>
+              <div class="form-group">
+                <label for="lastName">Familiya *</label>
+                <input type="text" 
+                       id="lastName" 
+                       [(ngModel)]="orderData.lastName" 
+                       name="lastName" 
+                       placeholder="Familiyangizni kiriting" 
+                       [class.error]="formErrors.lastName"
+                       required>
+                @if (formErrors.lastName) {
+                  <span class="error-message">{{formErrors.lastName}}</span>
+                }
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">Telefon raqam *</label>
+                <input type="tel" 
+                       id="phone" 
+                       [(ngModel)]="orderData.phone" 
+                       name="phone" 
+                       placeholder="+998 90 123 45 67" 
+                       [class.error]="formErrors.phone"
+                       required>
+                @if (formErrors.phone) {
+                  <span class="error-message">{{formErrors.phone}}</span>
+                }
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" 
+                       id="email" 
+                       [(ngModel)]="orderData.email" 
+                       name="email" 
+                       placeholder="email@example.com"
+                       [class.error]="formErrors.email">
+                @if (formErrors.email) {
+                  <span class="error-message">{{formErrors.email}}</span>
+                }
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="address">Manzil *</label>
+              <input type="text" 
+                     id="address" 
+                     [(ngModel)]="orderData.address" 
+                     name="address" 
+                     placeholder="To'liq manzilingizni kiriting" 
+                     [class.error]="formErrors.address"
+                     required>
+              @if (formErrors.address) {
+                <span class="error-message">{{formErrors.address}}</span>
+              }
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="city">Shahar *</label>
+                <input type="text" 
+                       id="city" 
+                       [(ngModel)]="orderData.city" 
+                       name="city" 
+                       placeholder="Shahar nomi" 
+                       [class.error]="formErrors.city"
+                       required>
+                @if (formErrors.city) {
+                  <span class="error-message">{{formErrors.city}}</span>
+                }
+              </div>
+              <div class="form-group">
+                <label for="postalCode">Pochta indeksi</label>
+                <input type="text" 
+                       id="postalCode" 
+                       [(ngModel)]="orderData.postalCode" 
+                       name="postalCode" 
+                       placeholder="100000"
+                       [class.error]="formErrors.postalCode">
+                @if (formErrors.postalCode) {
+                  <span class="error-message">{{formErrors.postalCode}}</span>
+                }
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="paymentMethod">To'lov usuli</label>
+              <select id="paymentMethod" [(ngModel)]="orderData.paymentMethod" name="paymentMethod">
+                <option value="card">Plastik karta</option>
+                <option value="cash">Naqd pul</option>
+                <option value="transfer">Bank o'tkazmasi</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="notes">Qo'shimcha izoh</label>
+              <textarea id="notes" 
+                        [(ngModel)]="orderData.notes" 
+                        name="notes" 
+                        placeholder="Buyurtma haqida qo'shimcha ma'lumot" 
+                        rows="3"></textarea>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button class="cancel-btn" (click)="closeOrderModal()">Bekor qilish</button>
+        <button class="confirm-btn" (click)="confirmOrder()">Buyurtmani tasdiqlash</button>
+      </div>
+    </div>
+  </div>
+}

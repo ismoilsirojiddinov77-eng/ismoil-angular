@@ -1,35 +1,87 @@
-<div class="main">
-  <h3>My favorite items</h3>
+<div class="main" [class.has-items]="server.favWithUpdatedLikedStatus().length > 0">
+  <h3>My Favorite Items</h3>
+  
   @for (item of server.favWithUpdatedLikedStatus(); track item.id) {
-  <div class="box">
-    <!-- <i id="ic" class="fas fa-heart" [style.color]="item.liked ? 'red' : 'white'"
-      (click)="server.addToFav(item);server.removeFromFav(item.id); server.liked(item.id)"></i> -->
-
-    <!-- Miqdor boshqaruvi yuqorida -->
-
-
-    <i id="remove" class="fas fa-heart" (click)="server.removeFromFav(item.id)" title="favoritedan olib tashlash"></i>
-    <div class="img">
-      <img [src]="item.imgurl" alt="{{item.name}}">
+    <div class="box">
+      <i id="icon" class="fas fa-shopping-cart" 
+         [style.color]="item.basket ? 'grey' : 'white'"
+         (click)="server.addToSavat(item); server.basket(item.id); $event.stopPropagation()">
+      </i>
+      <i id="remove" class="fas fa-heart" 
+         (click)="server.removeFromFav(item.id)" 
+         title="favoritedan olib tashlash">
+      </i>
+      <div class="img">
+        <img [src]="item.imgurl" alt="{{item.name}}">
+      </div>
+      <div class="info">
+        <p>{{item.name}}</p>
+        <p>${{item.price}}</p>
+      </div>
     </div>
-    <div class="info">
-      <p>{{item.name}}</p>
-      <p>${{item.price}}</p>
-
-    </div>
-  </div>
   }
-
+  
   @if (server.favWithUpdatedLikedStatus().length === 0) {
-  <div class="empty-cart">
-    <p>Savatingiz bo'sh</p>
-    <i class="fas fa-shopping-cart empty-icon"></i>
-  </div>
-  } @else {
-  <div class="cart-summary">
+    <div class="empty-favorites">
+      <div class="empty-icon-container">
+        <i class="fas fa-heart empty-main-icon"></i>
+        <div class="floating-hearts">
+          <i class="fas fa-heart floating-heart"></i>
+          <i class="fas fa-heart floating-heart"></i>
+          <i class="fas fa-heart floating-heart"></i>
+          <i class="fas fa-heart floating-heart"></i>
+        </div>
+      </div>
+      
+      <div class="empty-content">
+        <h2 class="empty-title">Your Favorites are Empty</h2>
+        <p class="empty-description">
+          Start building your wishlist by adding items you love. 
+          Discover amazing products and save them for later!
+        </p>
+        
+        <!-- <div class="action-buttons">
+          <button class="btn btn-primary" (click)="goToShop()">
+            <i class="fas fa-shopping-bag"></i>
+            Start Shopping
+          </button>
+          <button class="btn btn-secondary" (click)="exploreCategories()">
+            <i class="fas fa-compass"></i>
+            Explore Categories
+          </button>
+        </div> -->
+      </div>
+    </div>
 
-    <button class="checkout-btn">Buyurtma berish</button>
-    <button class="clear-btn" (click)="clearCart()">Savatni tozalash</button>
-  </div>
+    <div class="suggested-section">
+      <h3 class="suggested-title">Popular Items You Might Like</h3>
+      <div class="suggested-items">
+        <div class="suggested-item" (click)="goToCategory('fashion')">
+          <i class="fas fa-tshirt item-icon"></i>
+          <div class="item-name">Fashion</div>
+          <div class="item-category">Clothing & Style</div>
+        </div>
+        <div class="suggested-item" (click)="goToCategory('electronics')">
+          <i class="fas fa-laptop item-icon"></i>
+          <div class="item-name">Electronics</div>
+          <div class="item-category">Tech & Gadgets</div>
+        </div>
+        <div class="suggested-item" (click)="goToCategory('home')">
+          <i class="fas fa-home item-icon"></i>
+          <div class="item-name">Home Decor</div>
+          <div class="item-category">House & Garden</div>
+        </div>
+        <!-- <div class="suggested-item" (click)="goToCategory('gaming')">
+          <i class="fas fa-gamepad item-icon"></i>
+          <div class="item-name">Gaming</div>
+          <div class="item-category">Entertainment</div>
+        </div> -->
+      </div>
+    </div>
+  } @else {
+    <div class="cart-summary">
+      <button class="checkout-btn" (click)="goToShop()">Buyurtma berish</button>
+      <button class="clear-btn" (click)="clearCart()">Savatni tozalash</button>
+    </div>
   }
 </div>
