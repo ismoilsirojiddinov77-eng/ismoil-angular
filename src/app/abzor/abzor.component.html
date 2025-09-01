@@ -19,7 +19,7 @@
           <span class="rating-count">(4.2 / 5)</span>
         </div>
       </div>
-      
+
       <div class="price-section">
         <div class="price-container">
           <span class="current-price">${{selectedItem.price}}</span>
@@ -61,16 +61,13 @@
 
       <!-- Harakat tugmalari -->
       <div class="actions">
-        <button class="btn-favorite" 
-                [class.active]="selectedItem.liked" 
-                (click)="addToFavorites()">
+        <button class="btn-favorite" [class.active]="selectedItem.liked" (click)="addToFavorites()">
           <i class="fas fa-heart"></i>
           {{ selectedItem.liked ? 'Sevimlilardan olib tashlash' : 'Sevimlilarga qo\'shish' }}
         </button>
-        
-        <button class="btn-cart" 
-                [class.active]="selectedItem.basket" 
-                (click)="selectedItem.basket ? goToCart() : addToCart()">
+
+        <button class="btn-cart" [class.active]="selectedItem.basket"
+          (click)="selectedItem.basket ? goToCart() : addToCart()">
           <i class="fas fa-shopping-cart"></i>
           {{ selectedItem.basket ? 'Savatga o\'tish' : 'Savatga qo\'shish' }}
         </button>
@@ -103,7 +100,7 @@
   <div class="product-description">
     <h3>Mahsulot haqida</h3>
     <p>
-      Bu yuqori sifatli {{selectedItem.name}} zamonaviy uslub va qulaylikni birlashtiradi. 
+      Bu yuqori sifatli {{selectedItem.name}} zamonaviy uslub va qulaylikni birlashtiradi.
       Har kungi kiyim uchun ideal tanlov bo'lib, sizga ajoyib his-tuyg'u va ko'rinish beradi.
     </p>
     <ul>
