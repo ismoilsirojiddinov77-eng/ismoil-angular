@@ -201,3 +201,6 @@ nav {
     color: white;
     list-style-type: none;
 }
+#chz{
+    text-decoration: line-through;
+}

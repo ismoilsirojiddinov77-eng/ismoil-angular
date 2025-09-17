@@ -15,7 +15,7 @@ export class FavoriteComponent {
 
  goToShop() {
   // Shop sahifasiga o'tish
-  this.router.navigate(['/shop']);
+  this.router.navigate(['/savat']);
 }
 
 exploreCategories() {

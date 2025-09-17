@@ -1,11 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AllserveService, ClothingItem } from '../allserve.service';
 import { Router } from '@angular/router';
+import { NgModel } from '@angular/forms';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-women',
   standalone: true,
-  imports: [],
+  imports: [NgIf],
   templateUrl: './women.component.html',
   styleUrl: './women.component.css'
 })

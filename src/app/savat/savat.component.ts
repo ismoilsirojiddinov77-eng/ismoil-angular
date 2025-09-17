@@ -206,16 +206,12 @@ export class SavatComponent {
 
     console.log('Buyurtma:', orderDetails);
 
-    // Bu yerda serverga buyurtma yuborish logikasi bo'ladi
     alert(`Buyurtma muvaffaqiyatli qabul qilindi!\nBuyurtma raqami: ${orderDetails.orderId}\nJami summa: $${orderDetails.totalPrice}`);
 
-    // Buyurtma holatini o'zgartirish
     this.orderStatus = 'ordered';
-    
-    // Oynani yopish (savatni tozalamaslik)
+
     this.closeOrderModal();
-    
-    // 3 sekund keyin "yetkazildi" holatiga o'tkazish (demo uchun)
+
     setTimeout(() => {
       if (this.orderStatus === 'ordered') {
         this.orderStatus = 'delivered';
@@ -224,20 +220,16 @@ export class SavatComponent {
     }, 5000);
   }
 
-  // Yangi buyurtma uchun savatni tozalash
   startNewOrder() {
-    // Barcha itemlarning basket holatini false qilish
+
     const savatItems = this.server.savat();
     savatItems.forEach(item => {
       this.server.basket(item.id);
     });
-    
-    // Savatni tozalash va holatni tiklash
     this.server.savat.set([]);
     this.orderStatus = 'cart';
   }
 
-  // Sevimli mahsulotga qo'shish/olib tashlash
   toggleFavorite(item: any) {
     if (this.orderStatus === 'cart') {
       this.server.addToFav(item);
@@ -245,7 +237,6 @@ export class SavatComponent {
     }
   }
 
-  // Modal tashqarisiga bosilganda yopish
   onModalBackdropClick(event: Event) {
     if (event.target === event.currentTarget) {
       this.closeOrderModal();

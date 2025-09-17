@@ -1,11 +1,13 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, NgModule, OnInit } from '@angular/core';
 import { AllserveService, ClothingItem } from '../allserve.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-sport-clothes',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './sport-clothes.component.html',
   styleUrl: './sport-clothes.component.css'
 })

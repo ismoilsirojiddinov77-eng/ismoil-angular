@@ -1,1 +1,310 @@
-<p>discount works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discounts - Coming Soon</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Alex+Brush&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .discount-container {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .discount-icon-container {
+            position: relative;
+            margin-bottom: 40px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .main-discount-icon {
+            font-size: 120px;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 10px 20px rgba(255, 107, 107, 0.3));
+            margin-bottom: 20px;
+        }
+
+        .floating-discount-icons {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 200px;
+            pointer-events: none;
+        }
+
+        .floating-discount-icon {
+            position: absolute;
+            font-size: 24px;
+            color: rgba(102, 126, 234, 0.6);
+            animation: floatingDiscount 4s ease-in-out infinite;
+        }
+
+        .floating-discount-icon:nth-child(1) {
+            top: 10%;
+            left: 15%;
+            animation-delay: 0s;
+        }
+
+        .floating-discount-icon:nth-child(2) {
+            top: 25%;
+            right: 10%;
+            animation-delay: 1s;
+        }
+
+        .floating-discount-icon:nth-child(3) {
+            bottom: 30%;
+            left: 20%;
+            animation-delay: 2s;
+        }
+
+        .floating-discount-icon:nth-child(4) {
+            bottom: 15%;
+            right: 15%;
+            animation-delay: 3s;
+        }
+
+        @keyframes floatingDiscount {
+            0%, 100% {
+                transform: translateY(0px) scale(1);
+                opacity: 0.6;
+            }
+            25% {
+                transform: translateY(-15px) scale(1.1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(-30px) scale(1);
+                opacity: 0.4;
+            }
+            75% {
+                transform: translateY(-15px) scale(0.9);
+                opacity: 0.7;
+            }
+        }
+
+        .discount-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #2c3e50, #34495e);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .discount-subtitle {
+            font-size: 1.5rem;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .discount-description {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #5a6c7d;
+            margin-bottom: 50px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .coming-soon-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(243, 156, 18, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 10px 30px rgba(243, 156, 18, 0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 15px 40px rgba(243, 156, 18, 0.4);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 10px 30px rgba(243, 156, 18, 0.3);
+            }
+        }
+
+        .features-list {
+            text-align: left;
+            max-width: 400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .features-list h3 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            color: #5a6c7d;
+            font-size: 1rem;
+        }
+
+        .feature-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .feature-item i {
+            font-size: 1.2rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            width: 20px;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .discount-container {
+                padding: 40px 20px;
+                margin: 10px;
+                border-radius: 20px;
+            }
+
+            .discount-title {
+                font-size: 2.5rem;
+            }
+
+            .main-discount-icon {
+                font-size: 80px;
+            }
+
+            .discount-description {
+                font-size: 1.1rem;
+            }
+
+            .features-list {
+                padding: 25px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .discount-title {
+                font-size: 2rem;
+            }
+
+            .discount-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .discount-description {
+                font-size: 1rem;
+            }
+
+            .floating-discount-icons {
+                width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="discount-container">
+        <div class="discount-icon-container">
+            <i class="fas fa-percentage main-discount-icon"></i>
+            <div class="floating-discount-icons">
+                <i class="fas fa-tag floating-discount-icon"></i>
+                <i class="fas fa-gift floating-discount-icon"></i>
+                <i class="fas fa-star floating-discount-icon"></i>
+                <i class="fas fa-bolt floating-discount-icon"></i>
+            </div>
+        </div>
+
+        <div class="coming-soon-badge">
+            <i class="fas fa-clock"></i> Coming Soon
+        </div>
+
+        <h1 class="discount-title">Amazing Discounts</h1>
+        <h2 class="discount-subtitle">Currently No Discounts Available</h2>
+        
+        <p class="discount-description">
+            We're working hard to bring you the best deals and discounts! Our team is preparing 
+            exclusive offers, flash sales, and special promotions. Stay tuned for incredible savings opportunities.
+        </p>
+
+        <div class="features-list">
+            <h3>What's Coming Soon</h3>
+            <div class="feature-item">
+                <i class="fas fa-flash"></i>
+                <span>Flash Sales with up to 70% off</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-crown"></i>
+                <span>Exclusive VIP member discounts</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-calendar"></i>
+                <span>Seasonal sales and special events</span>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-gift"></i>
+                <span>Bundle deals and gift promotions</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
